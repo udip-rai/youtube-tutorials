@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "react-query";
 
 // Import - schemas
 import {
-  ComponentSchema,
+  CreatePostSchema,
   FormDataSchema,
   PostSchema,
 } from "../schemas/AppSchema";
@@ -14,7 +14,7 @@ import {
 import { createItem } from "../services/api_service";
 
 // Main
-const CreatePost = ({ posts, setPosts }: ComponentSchema) => {
+const CreatePost = ({ posts, setPosts }: CreatePostSchema) => {
   // States
   const [formData, setFormData] = useState<FormDataSchema>({
     title: "",

@@ -1,18 +1,14 @@
 // Import - node_modules
 import { AxiosError } from "axios";
-import { useState } from "react";
-import { useQuery } from "react-query";
 
-// Import - components
-import UpdatePost from "./UpdatePost";
-import DeletePost from "./DeletePost";
+import { useQuery } from "react-query";
 
 // Import - services
 import { fetchItems } from "../services/api_service";
 
 // Import - schemas
 import {
-  ComponentSchema,
+  PostListSchema,
   PostSchema,
   SinglePostSchema,
 } from "../schemas/AppSchema";
@@ -76,13 +72,11 @@ const SinglePost = (params: SinglePostSchema) => {
 };
 
 // Main
-const PostList = (props: ComponentSchema) => {
+const PostList = (props: PostListSchema) => {
   // Props
-  const { posts, setPosts } = props;
+  const { posts, setPosts, setDeleteId, setUpdateId } = props;
 
   // States
-  const [updateId, setUpdateId] = useState<number>();
-  const [deleteId, setDeleteId] = useState<number>();
 
   // Api call to retrieve all the posts list
   const { error, isLoading } = useQuery("postList", fetchItems, {
@@ -94,26 +88,10 @@ const PostList = (props: ComponentSchema) => {
   });
 
   // Custom props for single post
-  // const deletePostProps = { id: updateId, posts, setPosts };
   const singlePostProps = { setDeleteId, setUpdateId };
-  const updatePostProps = {
-    id: updateId as number,
-    posts,
-    setUpdateId,
-    setPosts,
-  };
-
-  const deletePostProps = {
-    id: deleteId as number,
-    setPosts,
-    setDeleteId,
-  };
 
   return (
     <>
-      <DeletePost {...deletePostProps} />
-      <UpdatePost {...updatePostProps} />
-
       {isLoading ? (
         <>Fetching posts..</>
       ) : error ? (

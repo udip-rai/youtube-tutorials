@@ -1,30 +1,50 @@
+// General Post structure
 export type PostSchema = {
-  userId?: number;
   id: number;
+  userId?: number;
   title: string;
   body: string;
 };
 
+// Form data excluding non-input fields
 export type FormDataSchema = Omit<PostSchema, "id" | "userId">;
 
-export type ComponentSchema = {
+// Reusable state handler for posts
+export type PostStateHandler = React.Dispatch<
+  React.SetStateAction<PostSchema[]>
+>;
+
+// For handling actions that require setting the post IDs
+export type SetIdHandler = (id: number) => void;
+
+// Schema for the CreatePost component (used for creating a new post)
+export type CreatePostSchema = {
   posts: PostSchema[];
-  setPosts: React.Dispatch<React.SetStateAction<PostSchema[]>>;
+  setPosts: PostStateHandler;
 };
 
-export type SinglePostSchema = {
-  item: PostSchema;
-  setDeleteId: (id: number) => void;
-  setUpdateId: (id: number) => void;
-};
-
-export interface UpdatePostSchema extends ComponentSchema {
-  id: number;
-  setUpdateId: (id: number) => void;
+// Schema for a list of posts (used for displaying and managing post actions)
+export interface PostListSchema extends CreatePostSchema {
+  setDeleteId: SetIdHandler;
+  setUpdateId: SetIdHandler;
 }
 
-export type DeletePostSchema = {
+// Schema for a single post (used for displaying or managing individual post actions)
+export interface SinglePostSchema {
+  item: PostSchema;
+  setDeleteId: SetIdHandler;
+  setUpdateId: SetIdHandler;
+}
+
+// Schema for updating a post
+export interface UpdatePostSchema extends CreatePostSchema {
   id: number;
-  setDeleteId: (id: number) => void;
-  setPosts: React.Dispatch<React.SetStateAction<PostSchema[]>>;
-};
+  setUpdateId: SetIdHandler;
+}
+
+// Schema for deleting a post
+export interface DeletePostSchema {
+  id: number;
+  setDeleteId: SetIdHandler;
+  setPosts: PostStateHandler;
+}
