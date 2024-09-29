@@ -1,31 +1,57 @@
 // Import - node_modules
-import { useQuery } from "react-query";
 import { AxiosError } from "axios";
-
-// Import - schemas
-import { PostSchema } from "../schemas/AppSchema";
+import { useQuery } from "react-query";
 
 // Import - services
 import { fetchItems } from "../services/api_service";
 
+// Import - schemas
+import { ComponentSchema, PostSchema } from "../schemas/AppSchema";
+
 // Display a single post
-const SinglePost = ({ item }: { item: PostSchema }) => {
-  return (
-    <li>
-      <div>
-        <div>Id: {item?.id}</div>
-        <div>User Id: {item?.userId}</div>
-        <div>Title: {item?.title}</div>
-        <div>Body: {item?.body}</div>
-      </div>
-    </li>
-  );
-};
+const SinglePost = ({ item }: { item: PostSchema }) => (
+  <li style={{ textAlign: "left" }}>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <b>Id: </b>
+          </td>
+          <td>{item?.id}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>User Id: </b>
+          </td>
+          <td>{item?.userId}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Title: </b>
+          </td>
+          <td>{item?.title}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Body: </b>
+          </td>
+          <td>{item?.body}</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+);
 
 // Main
-const PostList = () => {
+const PostList = ({ posts, setPosts }: ComponentSchema) => {
   // Api call to retrieve all the posts list
-  const { data, error, isLoading } = useQuery("postList", fetchItems);
+  const { error, isLoading } = useQuery("postList", fetchItems, {
+    onSuccess: (data) => {
+      if (data?.length > posts?.length) {
+        setPosts(data as PostSchema[]);
+      }
+    },
+  });
 
   return (
     <>
@@ -34,7 +60,8 @@ const PostList = () => {
       ) : error ? (
         <>Error: {(error as AxiosError)?.message}</>
       ) : (
-        <div>
+        <div style={{ textAlign: "left" }}>
+          <h1>Post List</h1>
           <ul
             style={{
               listStyle: "number",
@@ -43,7 +70,7 @@ const PostList = () => {
               gap: "40px",
             }}
           >
-            {data?.map((item: PostSchema, index: number) => (
+            {posts?.map((item: PostSchema, index: number) => (
               <SinglePost key={index} item={item} />
             ))}
           </ul>

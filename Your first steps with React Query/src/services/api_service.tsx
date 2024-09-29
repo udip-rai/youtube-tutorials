@@ -2,14 +2,10 @@
 import axios, { AxiosResponse } from "axios";
 
 // Import - schemas
-import { PostSchema } from "../schemas/AppSchema";
+import { FormDataSchema, PostSchema } from "../schemas/AppSchema";
 
 // Get all items (GET)
 export const fetchItems = async (): Promise<PostSchema[]> => {
-  console.log(
-    "import.meta.env.VITE_BACKEND_API",
-    import.meta.env.VITE_BACKEND_API
-  );
   try {
     const response: AxiosResponse = await axios.get(
       import.meta.env.VITE_BACKEND_API
@@ -22,7 +18,9 @@ export const fetchItems = async (): Promise<PostSchema[]> => {
 };
 
 // Create new item (POST)
-export const createItem = async (payload: PostSchema): Promise<PostSchema> => {
+export const createItem = async (
+  payload: FormDataSchema
+): Promise<PostSchema> => {
   try {
     const response: AxiosResponse = await axios.post(
       import.meta.env.VITE_BACKEND_API,
