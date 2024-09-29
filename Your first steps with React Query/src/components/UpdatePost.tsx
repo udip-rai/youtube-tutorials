@@ -133,6 +133,7 @@ const UpdatePost = (props: UpdatePostSchema) => {
               border: "2px solid rgba(255, 255, 255, 0.5)",
               boxShadow: "2px 4px 16px rgba(0, 0, 0, 0.8)",
               transform: "translate(0%, 0%)",
+              maxWidth: "600px",
             }}
           >
             <h2>Update Post {id}</h2>
@@ -162,7 +163,12 @@ const UpdatePost = (props: UpdatePostSchema) => {
             </button>
             <form
               onSubmit={handleFormSubmit}
-              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+                padding: "20px",
+              }}
             >
               <div style={{ display: "flex", gap: "20px" }}>
                 <label htmlFor="title" style={{ minWidth: "100px" }}>
@@ -174,7 +180,7 @@ const UpdatePost = (props: UpdatePostSchema) => {
                   name="title"
                   value={formData.title || posts?.[id - 1]?.title}
                   onChange={handleInputChange}
-                  style={{ minWidth: "600px" }}
+                  style={{ minWidth: "400px" }}
                 />
               </div>
               {formErrors.title && (
@@ -190,18 +196,24 @@ const UpdatePost = (props: UpdatePostSchema) => {
                   name="body"
                   value={formData.body || posts?.[id - 1]?.body}
                   onChange={handleInputChange}
-                  style={{ minWidth: "600px", height: "100px" }}
+                  style={{ minWidth: "400px", height: "100px" }}
                 />
               </div>
               {formErrors.body && (
                 <p style={{ color: "red" }}>{formErrors.body}</p>
               )}
 
-              <div style={{ display: "flex", gap: "20px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "20px",
+                  justifyContent: "center",
+                }}
+              >
                 <button
                   type={mutation.isLoading ? "button" : "submit"}
                   style={{
-                    minWidth: "calc(100px + 600px + 20px + 4px)",
+                    minWidth: "calc(200px)",
                     border: "1px solid white",
                   }}
                   onMouseOver={(e) =>

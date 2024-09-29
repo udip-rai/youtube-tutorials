@@ -69,7 +69,18 @@ const CreatePost = ({ posts, setPosts }: ComponentSchema) => {
 
   return (
     <div style={{ textAlign: "left" }}>
-      <h1>Create Post</h1>
+      <h2
+        style={{
+          border: "2px solid white",
+          width: "fit-content",
+          padding: "2px 32px",
+          backgroundColor: "rgba(255, 255, 255, 0.2)",
+          minWidth: "200px",
+          textAlign: "center",
+        }}
+      >
+        Create Post
+      </h2>
       <form
         onSubmit={handleFormSubmit}
         style={{ display: "flex", flexDirection: "column", gap: "20px" }}
@@ -107,7 +118,7 @@ const CreatePost = ({ posts, setPosts }: ComponentSchema) => {
           <button
             type={mutation.isLoading ? "button" : "submit"}
             style={{
-              minWidth: "calc(100px + 300px + 20px + 4px)",
+              minWidth: "200px",
               border: "1px solid white",
             }}
             onMouseOver={(e) =>
@@ -118,6 +129,19 @@ const CreatePost = ({ posts, setPosts }: ComponentSchema) => {
             }
           >
             {mutation.isLoading ? "Loading..." : "Create"}
+          </button>
+          <button
+            type="button"
+            style={{ minWidth: "200px", border: "1px solid white" }}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.backgroundColor = "grey")
+            }
+            onMouseOut={(e) =>
+              (e.currentTarget.style.backgroundColor = "transparent")
+            }
+            onClick={() => setFormErrors({ title: "", body: "" })}
+          >
+            Reset
           </button>
         </div>
       </form>

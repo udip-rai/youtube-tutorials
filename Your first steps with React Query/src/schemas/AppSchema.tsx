@@ -22,3 +22,9 @@ export interface UpdatePostSchema extends ComponentSchema {
   id: number;
   setUpdateId: (id: number) => void;
 }
+
+export type DeletePostSchema = {
+  id: number;
+  setDeleteId: (id: number) => void;
+  setPosts: React.Dispatch<React.SetStateAction<PostSchema[]>>;
+};

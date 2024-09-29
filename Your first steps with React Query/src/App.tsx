@@ -21,6 +21,9 @@ const App = () => {
 
   return (
     <div>
+      <h1 style={{ textDecoration: "underline", color: "greenyellow" }}>
+        CRUD using React Query
+      </h1>
       <CreatePost {...commonProps} />
       <PostList {...commonProps} />
     </div>

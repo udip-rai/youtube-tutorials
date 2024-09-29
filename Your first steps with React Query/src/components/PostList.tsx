@@ -1,6 +1,11 @@
 // Import - node_modules
 import { AxiosError } from "axios";
+import { useState } from "react";
 import { useQuery } from "react-query";
+
+// Import - components
+import UpdatePost from "./UpdatePost";
+import DeletePost from "./DeletePost";
 
 // Import - services
 import { fetchItems } from "../services/api_service";
@@ -11,8 +16,6 @@ import {
   PostSchema,
   SinglePostSchema,
 } from "../schemas/AppSchema";
-import { useState } from "react";
-import UpdatePost from "./UpdatePost";
 
 // Display a single post
 const SinglePost = (params: SinglePostSchema) => {
@@ -100,8 +103,15 @@ const PostList = (props: ComponentSchema) => {
     setPosts,
   };
 
+  const deletePostProps = {
+    id: deleteId as number,
+    setPosts,
+    setDeleteId,
+  };
+
   return (
     <>
+      <DeletePost {...deletePostProps} />
       <UpdatePost {...updatePostProps} />
 
       {isLoading ? (
@@ -109,8 +119,19 @@ const PostList = (props: ComponentSchema) => {
       ) : error ? (
         <>Error: {(error as AxiosError)?.message}</>
       ) : (
-        <div style={{ textAlign: "left" }}>
-          <h1>Post List</h1>
+        <div style={{ textAlign: "left", padding: "20px 0" }}>
+          <h2
+            style={{
+              border: "2px solid white",
+              width: "fit-content",
+              padding: "2px 32px",
+              backgroundColor: "rgba(255, 255, 255, 0.2)",
+              minWidth: "200px",
+              textAlign: "center",
+            }}
+          >
+            Post List
+          </h2>
           <ul
             style={{
               listStyle: "number",
