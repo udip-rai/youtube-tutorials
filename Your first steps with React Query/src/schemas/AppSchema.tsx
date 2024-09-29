@@ -11,3 +11,14 @@ export type ComponentSchema = {
   posts: PostSchema[];
   setPosts: React.Dispatch<React.SetStateAction<PostSchema[]>>;
 };
+
+export type SinglePostSchema = {
+  item: PostSchema;
+  setDeleteId: (id: number) => void;
+  setUpdateId: (id: number) => void;
+};
+
+export interface UpdatePostSchema extends ComponentSchema {
+  id: number;
+  setUpdateId: (id: number) => void;
+}

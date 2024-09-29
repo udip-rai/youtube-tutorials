@@ -35,8 +35,8 @@ export const createItem = async (
 
 // Update item (PUT)
 export const updateItem = async (
-  id: string,
-  payload: PostSchema
+  id: number,
+  payload: FormDataSchema
 ): Promise<PostSchema> => {
   try {
     const response: AxiosResponse = await axios.put(
@@ -51,7 +51,7 @@ export const updateItem = async (
 };
 
 // Delete item (DELETE)
-export const deleteItem = async (id: string): Promise<PostSchema> => {
+export const deleteItem = async (id: number): Promise<PostSchema> => {
   try {
     const response: AxiosResponse = await axios.delete(
       `${import.meta.env.VITE_BACKEND_API}/${id}`

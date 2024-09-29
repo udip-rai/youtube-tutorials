@@ -110,6 +110,12 @@ const CreatePost = ({ posts, setPosts }: ComponentSchema) => {
               minWidth: "calc(100px + 300px + 20px + 4px)",
               border: "1px solid white",
             }}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.backgroundColor = "teal")
+            }
+            onMouseOut={(e) =>
+              (e.currentTarget.style.backgroundColor = "transparent")
+            }
           >
             {mutation.isLoading ? "Loading..." : "Create"}
           </button>
